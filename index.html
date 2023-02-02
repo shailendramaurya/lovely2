@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Lovely2</title>
+    <meta name="description" content="Saavn Music Player is an Ad-Free Music Player, High Quality MP3 Songs with Metadata support, and a Modern Design. A large library of songs. developed by wiz64">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body style="padding-bottom: 50px;background:#FFDAD2;">
+<img id="download-logo" src="https://img.icons8.com/ios/50/000000/download.png" style="position:fixed;width:70%;height:auto;left:10%;top:35%;z-index:999999999;transition:all 1s;display:none;">
+<basefont color="black">
+    <header class="header-dark" style="color:black;padding: 0px 0px 5px;">
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <h1 class="text-center" style="margin: 0px;">Lovely2</h1>
+                    <h3 class="text-center" style="color:black;font-family: Bitter, serif;">Music Player &amp; Downloader</h3>
+                </div>
+            </div>
+        </div>
+        
+    </header>
+    <div>
+        <div class="tab-content">
+            <div class="tab-pane active" role="tabpanel" id="tab-1">
+                <section class="highlight-clean" style="background: #FAF1F4; color:#f5cc87;padding-top: 20px; border-radius:20px;border:2px solid #f5cc87;box-shadow:-10px 0px 70px black">
+                    <div class="text-center">
+                        <select id="saavn-bitrate" style="box-shadow:0px -2px 20px grey;">
+                            <option value="4">320kbps</option>
+                            <option value="3" selected="">160kbps</option>
+                            <option value="2">96kbps</option>
+                            <option value="1">48kbps</option>
+                        </select></div>
+                    <p class="text-center" style="padding: 0px 5px;"></p>
+                    <div class="container" style="padding: 0px;">
+                        <div class="intro">
+                            <form class="text-center" action="#" method="get">
+                                <div style="width: 95%;margin: auto;padding: 3px;" placeholder="Enter Song, Artist or Album name"><input class="form-control float-left fit-content" type="text" id="saavn-search-box" style="margin: 0px;color: var(--gray-dark);max-width: 100%;width: 75%;box-shadow:0px -5px 30px grey;" placeholder="Enter Name, Year, Artist"><button class="btn btn-color" id="saavn-search-trigger" type="submit" style="text-align: center;box-shadow:0px -5px 20px grey;" onclick="SaavnSearch()">Search</button></div>
+                                </form>
+                            <div class="text-left" id="saavn-results" style="margin-bottom: 20px;">
+                                <h5>Featured</h5>
+                            </div>
+                            
+                        <p class="footer" align="center">
+                            This content is not affiliated with, endorsed, sponsored, or specifically approved by any third party music provider like Gaana, Saavn, Spotfy, and is not responsible for any copyright material.<br>
+                            We don't serve any music on our servers.
+<h5 align="center">Developed and redesigned by &nbsp;<a href="mailto:shailendramaurya.in@gmail.com">Shailendra Maurya</a></h5>
+                        </p>
+                        <div style="padding-bottom: 40px;">
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div id="audio-player" style="z-index: 99;background:rgba(225,218,210,0.7);width: 100%;margin: 0px;color:black;backdrop-filter: blur(4px);border-top-left-radius: 20px;border-top-right-radius: 20px;box-shadow:-5px -5px 30px black;" onclick="showPlayer()">
+        <div class="row" style="margin: 0px;transition:all 1s;"">
+            <div class="col-auto fit-content" style="padding: 0px;">
+                <img class="img-fluid d-inline" id="player-image" style="height: 75px;width: 75px;border-radius: 10px;" src="https://i.pinimg.com/originals/ed/54/d2/ed54d2fa700d36d4f2671e1be84651df.jpg" loading="lazy">
+            </div>
+            <div class="col fit-content" style="padding: 0px;">
+                <div style="max-height: 40px;max-width: 95%;word-wrap: normal; padding-left: 20px;"><span id="player-name">Song</span><span><br></span><span id="player-album">Album</span></div><br>
+                <audio id="player" controls="controls" controlsList="nodownload" style="width: 100%;height: 30px; padding-left: 20px; padding-top:5px;">
+                    <source id="audioSource" src=""></source>
+                    Your browser does not support the audio format.
+                </audio>
+            </div>
+        </div>
+    </div>
+    <!-- floating downloader popup -->
+    <div class=”float-button” style="width:30px; height:30px; border-radius:50%; background-color:#fff; box-shadow:box-shadow:55px 5px 30px black; cursor:pointer; position:fixed;top:30px;right:30px; z-index:9999;">
+    <!-- download icon -->
+    <a href="javascript:void(0);" class="btn btn-color" id="mpopupLink">
+    <img src="https://img.icons8.com/ios/50/000000/download.png">
+    </a></div>
+    <style>
+        .mpopup {
+            position: fixed;
+            overflow: auto;
+            overflow-x: hidden;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            width: auto;
+            height: auto;
+            z-index: 9999;
+            display: none;;
+        }
+        ul.nobullets {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+.modal-content{
+box-shadow:10px 10px 30px black;
+background-color:rgba(255,255,255,0.85);
+}
+    </style>
+    <!-- Modal popup box -->
+<div id="mpopupBox" class="mpopup">
+    <!-- Modal content -->
+    <div class="modal-content">
+    
+        <div class="modal-header" style="display:inline;">
+            <span class="close">×</span>
+            <h2>Downloads</h2>
+        </div>
+        <div class="modal-body">
+            <!-- list of songs, with a small cover art pic, name, album name -->
+            <row>
+            <ul id="download-list" class="nobullets">
+                    <!--<li>
+                    <div class="col">
+                        
+                        <img id="download-cover" src="https://i.pinimg.com/originals/ed/54/d2/ed54d2fa700d36d4f2671e1be84651df.jpg" width="50px">
+                        <div style="display: inline;">
+                        <span id="download-name">Song</span>
+                        <span id="download-album">Album</span>
+                        <br>
+                        <span id="download-size">Size</span>
+                        <span id="download-status" style="color:green">Creating download link......</span>
+                        </div>
+                    </div>
+                    <hr>
+                    </li>-->
+                    
+
+
+                
+                </ul></row>
+        </div>
+        <div class="modal-footer" style="text-align: center;">
+            <p>Don't flood the Server, Have patience...</p>
+        </div>
+    
+    </div>
+</div>
+<script>
+    // Select modal
+    var mpopup = document.getElementById('mpopupBox');
+    
+    // Select trigger link
+    var mpLink = document.getElementById("mpopupLink");
+    
+    // Select close action element
+    var close = document.getElementsByClassName("close")[0];
+    
+    // Open modal once the link is clicked
+    mpLink.onclick = function() {
+        mpopup.style.display = "block";
+    };
+    
+    // Close modal once close element is clicked
+    close.onclick = function() {
+        mpopup.style.display = "none";
+    };
+    
+    // Close modal when user clicks outside of the modal box
+    window.onclick = function(event) {
+        if (event.target == mpopup) {
+            mpopup.style.display = "none";
+        }
+    };
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/functions.js"></script>
+    <script src="assets/js/saavn-search.js"></script>
+</basefont>
+</body>
+
+</html>
