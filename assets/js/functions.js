@@ -74,7 +74,7 @@ var goButton = document.getElementById("search-trigger");
 
 }
 
-var DOWNLOAD_API = "https://lovely2.cyclic.app"
+var DOWNLOAD_API = "https://saadhna-mp3-server.repl1a64.repl.co";
 
 function AddDownload(id) {
 
