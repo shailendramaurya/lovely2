@@ -17,7 +17,7 @@ if(query.length > 0) {
 async function doSaavnSearch(query,NotScroll) {
     if(!query) {return 0;}
 results_container.innerHTML = `<span class="loader">Searching</span>`;
-    query=query+"&limit=50";
+    query=query+"&limit=40";
 
 // try catch
 try {
